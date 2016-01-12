@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+      	<TITLE>
+        	 Un titulo 
+      	</TITLE>
+	<STYLE>
+	.image { 
+   		position: relative; 
+   		width: 100%; /* for IE 6 */
+	}
+
+	h2 { 
+   		position: fixed; 
+		top: 400px; 
+   		left: 350px; 
+   		width: 50%; 
+		font-size: 75%;
+	}
+	h1 { 
+   		position: fixed; 
+		top: 492px; 
+   		left: 330px; 
+   		width: 50%; 
+		font-size: 75%;
+	}
+	h3 { 
+   		position: fixed; 
+		top: 297px; 
+   		left: 380px; 
+   		width: 50%; 
+		font-size: 75%;
+	}
+	</STYLE>
+   	</HEAD>
+<BODY>
+	<script language="javascript" type="text/javascript">
+        var wsUri = "ws://172.19.13.92:8080";
+        var output;
+        nombre = "Hola";
+        dispositivo = "Como";
+        evento = "Andas";
+        function init()
+        {
+                output = document.getElementById("output");
+                websocket = new WebSocket(wsUri);
+                websocket.onopen = function(evt) { onOpen(evt) };
+                websocket.onclose = function(evt) { onClose(evt) };
+                testWebSocket();
+        }
+
+        function testWebSocket()
+        {
+                //websocket = new WebSocket(wsUri);
+                //websocket.onopen = function(evt) { onOpen(evt) };
+                //websocket.onclose = function(evt) { onClose(evt) };
+                websocket.onmessage = function(evt) { onMessage(evt) };
+                websocket.onerror = function(evt) { onError(evt) };
+        }
+
+        function onOpen(evt)
+        {
+                //writeToScreen("CONNECTED");
+                //document.body.appendChild(img);
+        }
+
+        function onClose(evt)
+        {
+                writeToScreen("DISCONNECTED");
+        }
+	 function onMessage(evt)
+        {
+                var splitter = evt.data.split(" ");
+                if (splitter[0] == "Dispositivo") dispositivo = splitter[2];
+                else if (splitter[0] == "Evento") evento = splitter[2];
+                else if (splitter[0] == "Nombre"){ nombre = splitter[2] + "<br />" + splitter[3];
+                        toScreen();
+                }
+        }       
+
+        function onError(evt)
+        {
+                writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+        }
+
+        function doSend(message)
+        {
+                writeToScreen("SENT: " + message);
+                websocket.send(message);
+        }
+        
+        function writeToScreen(message)
+        {
+                var pre = document.createElement("p");
+                pre.style.wordWrap = "break-word";
+                pre.innerHTML = message;
+                output.appendChild(pre);
+        }
+
+
+        function toScreen()
+        {       
+		//Seleccion de imagen
+                if(evento == "3") document.getElementById(dispositivo).src =  "images/ok.png";
+                else if(evento == "4") document.getElementById(dispositivo).src =  "images/NotOk.png";
+                else document.getElementById(dispositivo).src =  "images/warning.png";
+		
+		//Escritura de Nombre en posicion
+		if(dispositivo == "54908") document.getElementById("textL2").innerHTML = nombre;
+		else if(dispositivo == "54902")	document.getElementById("textL3").innerHTML = nombre;
+		else if(dispositivo == "54412")	document.getElementById("textL1").innerHTML = nombre;
+                //writeToScreen(nombre);
+                //writeToScreen(dispositivo);
+                //writeToScreen(evento);
+                /*var img = document.createElement("img");
+                if(evento == "3") img.src = "images/ok.png";
+                else if(evento == "4") img.src = "images/NotOk.png";
+                else img.src = "images/warning.png";
+                img.width = 75;
+                img.height = 50;
+                img.alt = "moco !!!";*/
+		// This next line will just add it to the <body> tag
+                //document.body.appendChild(img);
+                //<img src="images/54902.png" width = "75" height ="50" style ="position:fixed; top:490; left:320; right:0; bottom:0;">
+        }
+
+        window.addEventListener("load", init, false);
+
+        </script>
+	<!--<div class="image">
+  		<img src="images/unc1.png" />
+      		<h2>A Movie in the Park:<br />Kung Fu Panda</h2>
+	</div>-->
+	
+  	<img src="images/unc1.png" width = "1500" height ="800" style ="position:fixed; top:0; left:0; right:0; bottom:0;">
+	<div class="L2PSI">
+		<img id=54908 src="images/warning.png" width = "75" height ="50" style ="position:fixed; top:400; left:340; right:0; bottom:0;">
+		<h2 id="textL2">Esperando<br />Datos</h2>
+	</div>
+	<div class="L3PSI">
+		<img id=54902 src="images/warning.png" width = "75" height ="50" style ="position:fixed; top:490; left:320; right:0; bottom:0;">
+		<h1 id="textL3">Esperando<br />Datos</h1>
+	</div>
+	<div class="L1PSI">
+		<img id=54412 src="images/warning.png" width = "75" height ="50" style ="position:fixed; top:300; left:370; right:0; bottom:0;">
+		<h3 id="textL1">Esperando<br />Datos</h3>
+	</div>
+</BODY>
+</HTML>

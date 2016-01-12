@@ -1,0 +1,101 @@
+ <!DOCTYPE html>
+<HTML>
+<BODY>
+	<!--
+	<meta charset="utf-8" />
+	<title>WebSocket Test</title>
+	<script language="javascript" type="text/javascript">
+  	var wsUri = "ws://172.19.13.92:8080";
+	var output;
+	nombre = "Hola";
+	dispositivo = "Como";
+	evento = "Andas";
+	function init()
+  	{
+		output = document.getElementById("output");
+		websocket = new WebSocket(wsUri);
+		websocket.onopen = function(evt) { onOpen(evt) };
+		websocket.onclose = function(evt) { onClose(evt) };
+		testWebSocket();
+  	}
+
+  	function testWebSocket()
+  	{
+  		//websocket = new WebSocket(wsUri);
+   		//websocket.onopen = function(evt) { onOpen(evt) };
+   		//websocket.onclose = function(evt) { onClose(evt) };
+   		websocket.onmessage = function(evt) { onMessage(evt) };
+   		websocket.onerror = function(evt) { onError(evt) };
+  	}
+
+  	function onOpen(evt)
+  	{
+    		//writeToScreen("CONNECTED");
+		//document.body.appendChild(img);
+  	}
+
+  	function onClose(evt)
+  	{
+    		writeToScreen("DISCONNECTED");
+  	}
+
+  	function onMessage(evt)
+  	{
+		var splitter = evt.data.split(" ");
+		if (splitter[0] == "Dispositivo") dispositivo = splitter[2];
+		else if (splitter[0] == "Evento") evento = splitter[2];
+		else if (splitter[0] == "Nombre"){ nombre = splitter[2] + " " + splitter[3];
+    			toScreen();
+		}
+  	}	
+
+  	function onError(evt)
+  	{
+    		writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  	}
+
+  	function doSend(message)
+  	{
+    		writeToScreen("SENT: " + message);
+    		websocket.send(message);
+  	}
+	
+	function writeToScreen(message)
+        {
+                var pre = document.createElement("p");
+                pre.style.wordWrap = "break-word";
+                pre.innerHTML = message;
+                output.appendChild(pre);
+        }
+
+
+  	function toScreen()
+  	{	
+		if(evento == "3") document.getElementById("l2").src =  "images/ok.png";
+                else if(evento == "4") document.getElementById("l2").src =  "images/NotOk.png";
+                else document.getElementById("l2").src =  "images/warning.png";
+		//writeToScreen(nombre);
+		//writeToScreen(dispositivo);
+		//writeToScreen(evento);
+		/*var img = document.createElement("img");
+		if(evento == "3") img.src = "images/ok.png";
+		else if(evento == "4") img.src = "images/NotOk.png";
+		else img.src = "images/warning.png";
+    		img.width = 75;
+    		img.height = 50;
+    		img.alt = "moco !!!";*/
+
+    		// This next line will just add it to the <body> tag
+    		//document.body.appendChild(img);
+		//<img src="images/54902.png" width = "75" height ="50" style ="position:fixed; top:490; left:320; right:0; bottom:0;">
+  	}
+
+  	window.addEventListener("load", init, false);
+
+  	</script>
+	-->
+  	<!--<div id="output"></div>-->
+	<!--<img id = "Map" src="images/unc1.png" width = "1500" height ="800" style ="position:fixed; top:0; left:0; right:0; bottom:0;">-->
+       	<img id = l2 src="images/ok.png" width = "75" height ="50" style ="position:fixed; top:1; left:1; right:0; bottom:0;">
+</BODY>
+</HTML>

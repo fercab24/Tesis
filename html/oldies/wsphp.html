@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>WebSocket</title>
+
+<!--<style>
+ html,body{font:normal 0.9em arial,helvetica;}
+ #log {width:440px; height:200px; border:1px solid #7F9DB9; overflow:auto;}
+ #msg {width:330px;}
+</style>-->
+
+<script>
+var socket;
+function init(){
+  var host = "ws://172.19.13.92:8080";
+  try{
+    socket = new WebSocket(host);
+    //log('WebSocket - status '+socket.readyState);
+    socket.onopen    = function(msg){ /*log("Welcome - status "+this.readyState);*/ };
+    socket.onmessage = function(msg){ 
+	log("Received: "+msg.data);
+	//include "image.php"
+	 };
+    socket.onclose   = function(msg){ log("Disconnected - status "+this.readyState); };
+  }
+  catch(ex){ log(ex); }
+  $("msg").focus();
+}
+// Utilities
+function $(id){ return document.getElementById(id); }
+function log(msg){ $("log").innerHTML+="<br>"+msg; }
+function onkey(event){ if(event.keyCode==13){ send(); } }
+</script>
+
+</head>
+<body onload="init()">
+ <h3>WebSocket v2.00</h3>
+ <div id="log"></div>
+</body>
+</html>
