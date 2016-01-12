@@ -1,0 +1,2 @@
+ServerSend.c -o server `mysql_config --cflags --libs` -lm
+

@@ -1,0 +1,4 @@
+Al paracer no es necesario hacer multiples recieve cuando el dispositivo envia paquetes multiples. ya que el protocolo tpc se encarga de eso.
+El tema es como acceder a esa informacion. en el codigo solo esta print para 40, hay que cambiar eso.
+
+Acomodar el codigo para q quede mas legible.
