@@ -11,6 +11,8 @@
 * Flag:	Evita conexiones simultaneas de una misma ip, hasta que la primer secuencia termina
 * y habilita esta flag para permitir la segunda conexion
 * Los puertos son para validar la conexion, una conexion es valida solo si puerto2 = puerto1 + 1
+* bit es el valor del byte 33 del segundo paquete recibido en la primera secuencia
+* bit2 es el valor del byte 33 del segundo paquete recibido en la segunda secuencia
 */
 struct Dispositivo{
 	char Ip[15];
